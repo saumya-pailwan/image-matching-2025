@@ -1,0 +1,15 @@
+name: imc2025
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - jupyter
+  - pandas
+  - pytorch
+  - pillow
+  - matplotlib
+  - torchvision
+  - seaborn
+  - scikit-learn
+  - tqdm
+prefix: /home/icip_2025/miniconda3/envs/imc2025
