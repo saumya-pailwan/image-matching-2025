@@ -116,7 +116,7 @@ class Duster(nn.Module):
         super().__init__()
 
         model = feature_extractor
-        centroids = nn.Parameter(centroids)
+        centroids = nn.Parameter(centroids) # want to optimize centroids so we include it as a model parameter
 
 
     def forward(self, input):

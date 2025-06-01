@@ -21,7 +21,7 @@ import os
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_Q(centroids, latents):
-
+    # refer to equation 1 in https://arxiv.org/pdf/1511.06335
     numerator = (1 + torch.linalg.vector_norm(latents.unsqueeze(1) - centroids.unsqueeze(0).float(), dim = -1))**(-1)
 
     hollow_matrix = torch.ones_like(numerator)
@@ -33,6 +33,7 @@ def get_Q(centroids, latents):
     return numerator / denominator
 
 def get_P(Q):
+    # refer to equation 3 in https://arxiv.org/pdf/1511.06335
     f = Q.sum(axis = 0)
 
     numerator = Q**2 / f.unsqueeze(0)
@@ -71,7 +72,7 @@ def train():
     epochs = 100
     lr = 1.0e-3
     batch_size = 256
-    k = ?
+    k = ? # need to set after preprocessing
 
     train_data = Images("../data/processed/", split = "train") # LOAD DATASET USING CHARIS's CODE
     valid_data = Images("../data/processed/", split = "valid") # ^
@@ -79,7 +80,7 @@ def train():
     train_dataloader = DataLoader(train_data, batch_size = batch_size, shuffle = True)
     valid_dataloader = DataLoader(valid_data, batch_size = batch_size, shuffle = True)
 
-    DINO = torch.hub.load("facebookresearch/dino:main", "dino_vits16") # DINO
+    DINO = torch.hub.load("facebookresearch/dino:main", "dino_vits16") # Loading DINO which will be used as feature extractor
     DINO = DINO.to(device)
 
     centroids = initialize_centroids(DINO, train_dataloader, k)
