@@ -21,6 +21,7 @@ import os
 eps = 1.0e-16
 
 
+#TODO argument "shapes" is not used
 def resize_images(images, shapes):
 
     max_size = [640, 368] # make this 640 x 368
@@ -90,6 +91,7 @@ def preprocess_training_data(read_dir, write_dir, collate_fcn = "resizing"):
     labels = pd.read_csv(join(os.path.dirname(read_dir), "train_labels.csv"))
 
     # iterating over training dataset
+    #TODO use of undefined variable train_dir
     for dataset in os.listdir(train_dir):
         dataset_dir = join(train_dir, dataset)
 
@@ -127,6 +129,7 @@ def preprocess_training_data(read_dir, write_dir, collate_fcn = "resizing"):
     valid_shapes = np.array(valid_shapes)
 
     # computing statistics
+    #TODO Variable train_pixels not used or returned
     train_pixels = train_images.reshape(train_images.shape[0], -1, 3)
 
     mean = train_images.mean(axis = (0, 1, 2), keepdims = True)
@@ -176,7 +179,7 @@ def preprocess_testing_data(read_dir, write_dir, collate_fcn = "resizing"):
     for dataset in os.listdir(read_dir):
         dataset_dir = join(read_dir, dataset)
 
-
+        #TODO variable label_inds is not used
         label_inds = np.where(labels["dataset"] == dataset)[0]
 
         # reading in images
@@ -211,10 +214,12 @@ def preprocess_testing_data(read_dir, write_dir, collate_fcn = "resizing"):
         "padding": pad_images
     }
 
+    #TODO variable normalized_train_images is not used or returned
     normalized_train_images = collate_fcns[collate_fcn](normalized_images)
     normalized_valid_images = collate_fcns[collate_fcn](normalized_valid_images)
 
     # creating labels
+    #TODO use of undefined variable inds
     test_labels = labels.iloc(inds)
     
     # writing dataset to disk

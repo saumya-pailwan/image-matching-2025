@@ -72,7 +72,7 @@ def train():
     epochs = 100
     lr = 1.0e-3
     batch_size = 256
-    k = ? # need to set after preprocessing
+    k = ? #TODO need to set after preprocessing
 
     train_data = Images("../data/processed/", split = "train") # LOAD DATASET USING CHARIS's CODE
     valid_data = Images("../data/processed/", split = "valid") # ^
@@ -94,6 +94,7 @@ def train():
 
         model.train()
 
+        #TODO Add at least one checkpoint at the and of the training (# of epochs) or intermediate ones to restore a good bias-variance trade-off
         for images, labels in train_dataloader:
             images = images.to(device)
             labels = labels.to(device)
